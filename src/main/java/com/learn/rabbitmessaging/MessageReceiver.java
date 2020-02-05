@@ -23,6 +23,11 @@ public class MessageReceiver {
 		receive(in, "planets");
 	}
 
+	@RabbitListener(queues = "mars")
+	public void receive4(String in) {
+		receive(in, "mars");
+	}
+
 	private void receive(String in, String queueName) {
 		System.out.println("[Q]: " + queueName + " - " + "Message received : " + in);
 	}

@@ -4,6 +4,7 @@ import com.learn.rabbitmessaging.MessageReceiver;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.context.annotation.Bean;
@@ -80,6 +81,22 @@ public class ReceiverConfig {
 		@Bean
 		public Binding marsPlanetDirectBinding(Queue planetMarsQueue, DirectExchange directExchange) {
 			return BindingBuilder.bind(planetMarsQueue).to(directExchange).with("planet.mars");
+		}
+
+		//Fanout Bindings
+		@Bean
+		public Binding venusPlanetFanoutBinding(Queue planetVenusQueue, FanoutExchange fanoutExchange) {
+			return BindingBuilder.bind(planetVenusQueue).to(fanoutExchange);
+		}
+
+		@Bean
+		public Binding earthPlanetFanoutBinding(Queue planetEarthQueue, FanoutExchange fanoutExchange) {
+			return BindingBuilder.bind(planetEarthQueue).to(fanoutExchange);
+		}
+
+		@Bean
+		public Binding marsPlanetFanoutBinding(Queue planetMarsQueue, FanoutExchange fanoutExchange) {
+			return BindingBuilder.bind(planetMarsQueue).to(fanoutExchange);
 		}
 	}
 

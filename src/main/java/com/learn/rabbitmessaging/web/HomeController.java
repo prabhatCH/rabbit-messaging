@@ -2,6 +2,7 @@ package com.learn.rabbitmessaging.web;
 
 import com.learn.rabbitmessaging.MessageSender;
 import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -32,6 +33,18 @@ public class HomeController {
 	public String sendDirectMessage(@RequestParam String message, @RequestParam String routingKey) {
 		System.out.println("Sending direct message " + message + " and routing key : " + routingKey);
 		messageSender.send(message, routingKey, DirectExchange.class);
+		return "Message sent!";
+	}
+
+	/**
+	 *
+	 * @param routingKey This is optional to demonstrate the fact that even if you send a routing key to a fanout exchange, it is simply ignored
+	 *                   and the message is routed to all the subscribed queues.
+	 */
+	@PostMapping("/fanout")
+	public String sendFanoutMessage(@RequestParam String message, @RequestParam(required = false, defaultValue = "") String routingKey) {
+		System.out.println("Sending direct message " + message + " and routing key : " + routingKey);
+		messageSender.send(message, routingKey, FanoutExchange.class);
 		return "Message sent!";
 	}
 }
