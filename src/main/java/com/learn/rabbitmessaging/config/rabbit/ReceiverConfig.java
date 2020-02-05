@@ -3,6 +3,7 @@ package com.learn.rabbitmessaging.config.rabbit;
 import com.learn.rabbitmessaging.MessageReceiver;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,7 @@ public class ReceiverConfig {
 	static {
 		System.out.println("Setting up Receiver configuration");
 	}
+
 	private static class QueueConfig {
 		@Bean
 		public Queue planetVenusQueue() {
@@ -58,9 +60,26 @@ public class ReceiverConfig {
 		public Binding marsPlanetBinding(Queue planetMarsQueue, TopicExchange topicExchange) {
 			return BindingBuilder.bind(planetMarsQueue).to(topicExchange).with("planet.mars");
 		}
+
 		@Bean
 		public Binding planetTopicBinding(Queue planetTopicQueue, TopicExchange topicExchange) {
 			return BindingBuilder.bind(planetTopicQueue).to(topicExchange).with("planet.*");
+		}
+
+		//Direct Bindings
+		@Bean
+		public Binding venusPlanetDirectBinding(Queue planetVenusQueue, DirectExchange directExchange) {
+			return BindingBuilder.bind(planetVenusQueue).to(directExchange).with("planet.venus");
+		}
+
+		@Bean
+		public Binding earthPlanetDirectBinding(Queue planetEarthQueue, DirectExchange directExchange) {
+			return BindingBuilder.bind(planetEarthQueue).to(directExchange).with("planet.earth");
+		}
+
+		@Bean
+		public Binding marsPlanetDirectBinding(Queue planetMarsQueue, DirectExchange directExchange) {
+			return BindingBuilder.bind(planetMarsQueue).to(directExchange).with("planet.mars");
 		}
 	}
 
