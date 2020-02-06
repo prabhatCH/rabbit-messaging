@@ -1,7 +1,6 @@
 package com.learn.rabbitmessaging;
 
 import org.springframework.amqp.core.AbstractExchange;
-import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 

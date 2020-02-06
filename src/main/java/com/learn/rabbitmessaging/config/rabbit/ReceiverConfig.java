@@ -23,6 +23,11 @@ public class ReceiverConfig {
 		System.out.println("Setting up Receiver configuration");
 	}
 
+	@Bean
+	public MessageReceiver receiver() {
+		return new MessageReceiver();
+	}
+
 	private static class QueueConfig {
 		@Bean
 		public Queue planetVenusQueue() {
@@ -98,10 +103,5 @@ public class ReceiverConfig {
 		public Binding marsPlanetFanoutBinding(Queue planetMarsQueue, FanoutExchange fanoutExchange) {
 			return BindingBuilder.bind(planetMarsQueue).to(fanoutExchange);
 		}
-	}
-
-	@Bean
-	public MessageReceiver receiver() {
-		return new MessageReceiver();
 	}
 }
